@@ -101,10 +101,11 @@ class Enrollment(models.Model):
     # Has a grade point for each question
     # Has question content
     # Other fields and methods you would like to design
+
 class Question(models.Model):
     course = models.ManyToManyField(Course)
     grade = models.IntegerField(default=0)
-    question_text = CharField(max_length=200)
+    question_text = models.TextField()
     # Foreign key to lesson
     # question text
     # question grade/mark
@@ -125,14 +126,15 @@ class Question(models.Model):
     # Choice content
     # Indicate if this choice of the question is a correct one or not
     # Other fields and methods you would like to design
- class Choice(models.Model):
-     question = models.ManyToManyField(Question)
-
+class Choice(models.Model):
+    question = models.ManyToManyField(Question)
+    choice_text = models.TextField()    
+    
 # <HINT> The submission model
 # One enrollment could have multiple submission
 # One submission could have multiple choices
 # One choice could belong to multiple submissions
-#class Submission(models.Model):
-#    enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
-#    chocies = models.ManyToManyField(Choice)
+class Submission(models.Model):
+    enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
+    chocies = models.ManyToManyField(Choice)
 #    Other fields and methods you would like to design
